@@ -2,6 +2,7 @@ import { nu as NuSpotInfo } from '../view/SpotInfo';
 import { Bubble } from './Bubble';
 import * as Direction from './Direction';
 import { AnchorBoxBounds, boundsRestriction } from './LayoutBounds';
+import * as LayoutLabels from './LayoutLabels';
 import { AnchorBox, AnchorElement, AnchorLayout } from './LayoutTypes';
 
 /*
@@ -35,7 +36,7 @@ const southeast: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubb
   bubbles.innerSoutheast(),
   Direction.northwest(),
   boundsRestriction(anchor, { right: AnchorBoxBounds.RightEdge, bottom: AnchorBoxBounds.BottomEdge }),
-  'layout-inner-se',
+  LayoutLabels.southEastInner,
   false
 );
 
@@ -46,7 +47,7 @@ const southwest: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubb
   bubbles.innerSouthwest(),
   Direction.northeast(),
   boundsRestriction(anchor, { left: AnchorBoxBounds.LeftEdge, bottom: AnchorBoxBounds.BottomEdge }),
-  'layout-inner-sw',
+  LayoutLabels.southWestInner,
   false
 );
 
@@ -57,7 +58,7 @@ const northeast: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubb
   bubbles.innerNortheast(),
   Direction.southwest(),
   boundsRestriction(anchor, { right: AnchorBoxBounds.RightEdge, top: AnchorBoxBounds.TopEdge }),
-  'layout-inner-ne',
+  LayoutLabels.northEastInner,
   false
 );
 
@@ -68,7 +69,7 @@ const northwest: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubb
   bubbles.innerNorthwest(),
   Direction.southeast(),
   boundsRestriction(anchor, { left: AnchorBoxBounds.LeftEdge, top: AnchorBoxBounds.TopEdge }),
-  'layout-inner-nw',
+  LayoutLabels.northWestInner,
   false
 );
 
@@ -79,7 +80,7 @@ const north: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubbles:
   bubbles.innerNorth(),
   Direction.south(),
   boundsRestriction(anchor, { top: AnchorBoxBounds.TopEdge }),
-  'layout-inner-n',
+  LayoutLabels.northInner,
   false
 );
 
@@ -90,7 +91,7 @@ const south: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubbles:
   bubbles.innerSouth(),
   Direction.north(),
   boundsRestriction(anchor, { bottom: AnchorBoxBounds.BottomEdge }),
-  'layout-inner-s',
+  LayoutLabels.southInner,
   false
 );
 
@@ -101,7 +102,7 @@ const east: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubbles: 
   bubbles.innerEast(),
   Direction.west(),
   boundsRestriction(anchor, { right: AnchorBoxBounds.RightEdge }),
-  'layout-inner-e',
+  LayoutLabels.eastInner,
   false
 );
 
@@ -112,7 +113,7 @@ const west: AnchorLayout = (anchor: AnchorBox, element: AnchorElement, bubbles: 
   bubbles.innerWest(),
   Direction.east(),
   boundsRestriction(anchor, { left: AnchorBoxBounds.LeftEdge }),
-  'layout-inner-w',
+  LayoutLabels.westInner,
   false
 );
 

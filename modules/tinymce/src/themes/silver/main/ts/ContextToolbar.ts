@@ -6,14 +6,14 @@
  */
 
 import {
-  AddEventsBehaviour, AlloyComponent, AlloyEvents, AlloySpec, AlloyTriggers, AnchorSpec, Behaviour, Boxes, Bubble, GuiFactory, InlineView, Keying,
+  AddEventsBehaviour, AlloyComponent, AlloyEvents, AlloySpec, AlloyTriggers, AnchorSpec, Behaviour, Boxes, Bubble, GuiFactory, InlineView, isElementTopAligned, Keying,
   Layout, LayoutInside, MaxHeight, MaxWidth, PinnedLayout, Positioning
 } from '@ephox/alloy';
 
 import { InlineContent, Toolbar } from '@ephox/bridge';
 import { Arr, Cell, Fun, Id, Merger, Obj, Optional, Thunk } from '@ephox/katamari';
 import { PlatformDetection } from '@ephox/sand';
-import { Classes, Css, Focus, Scroll, SugarBody, SugarElement } from '@ephox/sugar';
+import { Css, Focus, Scroll, SugarBody, SugarElement } from '@ephox/sugar';
 import Editor from 'tinymce/core/api/Editor';
 import Delay from 'tinymce/core/api/util/Delay';
 import { getToolbarMode, ToolbarMode } from './api/Settings';
@@ -59,7 +59,8 @@ const getDesktopAnchorSpecLayouts = (contextbar: AlloyComponent) => {
   // and prefer that pinned layout to the other pinned layout
   const getPinnedLayouts = () => {
     // Something at the top will be anchored from its bottom value and grow upward
-    const isAlreadyAtTop = Classes.hasAll(contextbar.element, bubbleAlignments.bottom);
+    const isAlreadyAtTop = isElementTopAligned(contextbar.element);
+
     return isAlreadyAtTop ? [ PinnedLayout.pinAtTop, PinnedLayout.pinAtBottom ] : [ PinnedLayout.pinAtBottom, PinnedLayout.pinAtTop ];
   };
 

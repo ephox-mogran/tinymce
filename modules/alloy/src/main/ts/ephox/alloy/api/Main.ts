@@ -26,6 +26,7 @@ import {
   AnchorSpec, HotspotAnchorSpec, Layouts, MakeshiftAnchorSpec, NodeAnchorSpec, SelectionAnchorSpec, SubmenuAnchorSpec
 } from '../positioning/mode/Anchoring';
 import * as VerticalDir from '../positioning/mode/VerticalDir';
+import { isElementTopAligned } from '../positioning/view/PositionLocation';
 import * as FormTypes from '../ui/types/FormTypes';
 import * as ItemTypes from '../ui/types/ItemTypes'; // not sure if this is the right thing to expose, but we use it a lot?
 import * as MenuTypes from '../ui/types/MenuTypes';
@@ -250,6 +251,7 @@ export {
   Layout,
   LayoutInside,
   PinnedLayout,
+  isElementTopAligned,
   LayoutTypes,
   Bubble,
   MaxHeight,

@@ -1,5 +1,7 @@
 import { Optional } from '@ephox/katamari';
 import { Css, SugarElement } from '@ephox/sugar';
+import { isDecisionBottomAligned, isDecisionTopAligned, isElementBottomAligned, isElementTopAligned } from './PositionLocation';
+import { RepositionDecision } from './Reposition';
 
 export interface PositionCss {
   readonly position: string;
@@ -23,7 +25,7 @@ const NuPositionCss = (
   bottom
 });
 
-const applyPositionCss = (element: SugarElement, position: PositionCss): void => {
+const applyPositionCss = (element: SugarElement, position: PositionCss, decision: Optional<RepositionDecision>): void => {
   const addPx = (num: number) => num + 'px';
 
   /*
@@ -39,13 +41,62 @@ const applyPositionCss = (element: SugarElement, position: PositionCss): void =>
    * TODO: Implement ....
    */
 
-  Css.setOptions(element, {
+  const cssOptions = {
     position: Optional.some(position.position),
     left: position.left.map(addPx),
     top: position.top.map(addPx),
     right: position.right.map(addPx),
     bottom: position.bottom.map(addPx)
-  });
+  };
+
+  const changedFromTopToBottom = isElementTopAligned(element) && isDecisionBottomAligned(decision);
+  const changedFromBottomToTop = isElementBottomAligned(element) && isDecisionTopAligned(decision);
+
+  if (changedFromTopToBottom || changedFromBottomToTop) {
+  console.log('-----------------------------------------------');
+  console.log('Changed from top to bottom: ' + changedFromTopToBottom);
+  console.log('Top ' + Css.get(element, 'top'));
+  console.log('Top Raw ' + Css.getRaw(element, 'top').getOrNull());
+  console.log('Bottom ' + Css.get(element, 'bottom'));
+  console.log('Bottom Raw ' + Css.getRaw(element, 'bottom').getOrNull());
+    const getValue = (key: 'top' | 'left' | 'bottom' | 'right') => {
+      if (cssOptions[key].isSome()) {
+        return Optional.some(Css.get(element, key));
+      } else {
+        return Optional.none<string>();
+      }
+    };
+
+    const intermediateCssOptions = {
+      position: cssOptions.position,
+      top: getValue('top'),
+      right: getValue('right'),
+      bottom: getValue('bottom'),
+      left: getValue('left'),
+    };
+    console.log('--------');
+    console.log(cssOptions.top.getOrNull());
+    console.log();
+    console.log(intermediateCssOptions.top.getOrNull());
+    console.log();
+    console.log();
+    // debugger;
+    Css.setOptions(element, intermediateCssOptions);
+    Css.reflow(element);
+
+    console.log('Top ' + Css.get(element, 'top'));
+    console.log('Top Raw ' + Css.getRaw(element, 'top').getOrNull());
+    console.log('Bottom ' + Css.get(element, 'bottom'));
+    console.log(intermediateCssOptions.bottom.getOrNull() + ' > ' + cssOptions.bottom.getOrNull() + 'Bottom Raw ' + Css.getRaw(element, 'bottom').getOrNull());
+    console.log(intermediateCssOptions.top.getOrNull() + ' > ' + cssOptions.top.getOrNull() + 'Top Raw ' + Css.getRaw(element, 'top').getOrNull());
+    // debugger;
+  }
+
+  Css.setOptions(element, cssOptions);
+
+  if (changedFromTopToBottom || changedFromBottomToTop) {
+    // debugger;
+  }
 };
 
 export {

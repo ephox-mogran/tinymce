@@ -2,6 +2,7 @@ import { nu as NuSpotInfo } from '../view/SpotInfo';
 import { Bubble } from './Bubble';
 import * as Direction from './Direction';
 import { boundsRestriction } from './LayoutBounds';
+import { northPinned, southPinned } from './LayoutLabels';
 import { AnchorBox, AnchorElement, AnchorLayout } from './LayoutTypes';
 
 const pinAtTop: AnchorLayout = (
@@ -16,7 +17,7 @@ const pinAtTop: AnchorLayout = (
     bubbles.north(),
     Direction.north(),
     boundsRestriction(anchor, {}),
-    'north-docked',
+    northPinned,
     true
   );
 };
@@ -33,7 +34,7 @@ const pinAtBottom: AnchorLayout = (
     bubbles.south(),
     Direction.south(),
     boundsRestriction(anchor, {}),
-    'south-docked',
+    southPinned,
     true
   );
 };
