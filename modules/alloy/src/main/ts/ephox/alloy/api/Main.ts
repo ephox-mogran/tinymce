@@ -18,6 +18,7 @@ import * as Bubble from '../positioning/layout/Bubble';
 
 import * as Layout from '../positioning/layout/Layout';
 import * as LayoutInside from '../positioning/layout/LayoutInside';
+import { contextBarTransitionClass } from '../positioning/layout/LayoutLabels';
 import * as LayoutTypes from '../positioning/layout/LayoutTypes';
 import * as MaxHeight from '../positioning/layout/MaxHeight';
 import * as MaxWidth from '../positioning/layout/MaxWidth';
@@ -252,6 +253,7 @@ export {
   LayoutInside,
   PinnedLayout,
   isElementTopAligned,
+  contextBarTransitionClass,
   LayoutTypes,
   Bubble,
   MaxHeight,

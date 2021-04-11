@@ -6,7 +6,7 @@
  */
 
 import {
-  AddEventsBehaviour, AlloyComponent, AlloyEvents, AlloySpec, AlloyTriggers, Behaviour, CustomEvent, GuiFactory, InlineView, Keying, NativeEvents
+  AddEventsBehaviour, AlloyComponent, AlloyEvents, AlloySpec, AlloyTriggers, Behaviour, contextBarTransitionClass, CustomEvent, GuiFactory, InlineView, Keying, NativeEvents
 } from '@ephox/alloy';
 import { Arr, Cell, Id, Optional, Result } from '@ephox/katamari';
 import { Class, Css, EventArgs, Focus, SugarElement, SugarShadowDom, Width } from '@ephox/sugar';
@@ -54,6 +54,7 @@ const renderContextToolbar = (spec: { onEscape: () => Optional<boolean>; sink: A
         AlloyEvents.runOnSource<EventArgs>(NativeEvents.transitionend(), (comp, _se) => {
           Class.remove(comp.element, resizingClass);
           Css.remove(comp.element, 'width');
+          Class.remove(comp.element, contextBarTransitionClass);
         }),
 
         AlloyEvents.run<ChangeSlideEvent>(changeSlideEvent, (comp, se) => {

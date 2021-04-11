@@ -1,5 +1,6 @@
 import { Optional } from '@ephox/katamari';
-import { Css, SugarElement } from '@ephox/sugar';
+import { Class, Css, SugarElement } from '@ephox/sugar';
+import { contextBarTransitionClass } from '../layout/LayoutLabels';
 import { isDecisionBottomAligned, isDecisionTopAligned, isElementBottomAligned, isElementTopAligned } from './PositionLocation';
 import { RepositionDecision } from './Reposition';
 
@@ -53,12 +54,8 @@ const applyPositionCss = (element: SugarElement, position: PositionCss, decision
   const changedFromBottomToTop = isElementBottomAligned(element) && isDecisionTopAligned(decision);
 
   if (changedFromTopToBottom || changedFromBottomToTop) {
-  console.log('-----------------------------------------------');
-  console.log('Changed from top to bottom: ' + changedFromTopToBottom);
-  console.log('Top ' + Css.get(element, 'top'));
-  console.log('Top Raw ' + Css.getRaw(element, 'top').getOrNull());
-  console.log('Bottom ' + Css.get(element, 'bottom'));
-  console.log('Bottom Raw ' + Css.getRaw(element, 'bottom').getOrNull());
+    Css.set(element, 'position', 'absolute');
+
     const getValue = (key: 'top' | 'left' | 'bottom' | 'right') => {
       if (cssOptions[key].isSome()) {
         return Optional.some(Css.get(element, key));
@@ -74,29 +71,13 @@ const applyPositionCss = (element: SugarElement, position: PositionCss, decision
       bottom: getValue('bottom'),
       left: getValue('left'),
     };
-    console.log('--------');
-    console.log(cssOptions.top.getOrNull());
-    console.log();
-    console.log(intermediateCssOptions.top.getOrNull());
-    console.log();
-    console.log();
-    // debugger;
-    Css.setOptions(element, intermediateCssOptions);
-    Css.reflow(element);
 
-    console.log('Top ' + Css.get(element, 'top'));
-    console.log('Top Raw ' + Css.getRaw(element, 'top').getOrNull());
-    console.log('Bottom ' + Css.get(element, 'bottom'));
-    console.log(intermediateCssOptions.bottom.getOrNull() + ' > ' + cssOptions.bottom.getOrNull() + 'Bottom Raw ' + Css.getRaw(element, 'bottom').getOrNull());
-    console.log(intermediateCssOptions.top.getOrNull() + ' > ' + cssOptions.top.getOrNull() + 'Top Raw ' + Css.getRaw(element, 'top').getOrNull());
-    // debugger;
+    Css.setOptions(element, intermediateCssOptions);
+    Class.add(element, contextBarTransitionClass);
+    Css.reflow(element);
   }
 
   Css.setOptions(element, cssOptions);
-
-  if (changedFromTopToBottom || changedFromBottomToTop) {
-    // debugger;
-  }
 };
 
 export {
